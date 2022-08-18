@@ -4,10 +4,7 @@ services:
       
   node:
     image: leilaalgarve/nodedesafio:prod
-    container_name: node   
-    build: 
-      context: ./nodejs
-      dockerfile: ./Dockerfile.prod    
+    container_name: node     
     ports:
       - 3000:3000    
     volumes: 
@@ -21,9 +18,6 @@ services:
   ningx:
     image: leilaalgarve/ningxdesafio:prod
     container_name: ningx
-    build: 
-      context: ./ningx
-      dockerfile: ./Dockerfile.prod    
     ports:
       - 8080:80
     networks:
@@ -32,9 +26,6 @@ services:
   mysql:
     image: leilaalgarve/mysqldesafio:prod
     container_name: mysql
-    build: 
-      context: ./mysql
-      dockerfile: ./Dockerfile.prod    
     env_file:
       - mysql/mysql.env
     volumes: 
