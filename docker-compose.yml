@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+      
+  node:
+    image: leilaalgarve/nodedesafio:prod
+    container_name: node   
+    build: 
+      context: ./nodejs
+      dockerfile: ./Dockerfile.prod    
+    ports:
+      - 3000:3000    
+    volumes: 
+      - ./nodejs/app:/app  
+    stdin_open: true
+    tty: true     
+    networks:
+      - desafio
+
+
+  ningx:
+    image: leilaalgarve/ningxdesafio:prod
+    container_name: ningx
+    build: 
+      context: ./ningx
+      dockerfile: ./Dockerfile.prod    
+    ports:
+      - 8080:80
+    networks:
+      - desafio
+
+  mysql:
+    image: leilaalgarve/mysqldesafio:prod
+    container_name: mysql
+    build: 
+      context: ./mysql
+      dockerfile: ./Dockerfile.prod    
+    env_file:
+      - mysql/mysql.env
+    volumes: 
+      - mysqldata:/var/lib/mysql
+    networks:
+      - desafio
+
+
+networks:
+  desafio:
+    driver: bridge
+
+volumes:
+  mysqldata:
